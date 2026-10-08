@@ -332,7 +332,6 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
 .hint kbd{font:500 10.5px var(--f-mono);padding:1px 5px;border:1px solid var(--line2);border-radius:4px;
   background:var(--bg2);color:var(--tx2);margin:0 2px}
 
-/* LIMIT */
 .lim-btn{position:relative}
 .lim-btn .lim-ring{position:absolute;top:50%;left:50%;width:27px;height:27px;
   transform:translate(-50%,-50%) rotate(-90deg);pointer-events:none}
@@ -393,7 +392,6 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
 .lim-f .lim-live.crit::before{background:var(--danger);box-shadow:0 0 8px var(--danger)}
 @media(max-width:520px){.lim-pop{left:10px;right:10px;width:auto}}
 
-/* VOICE */
 .voice{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;
   padding:24px;gap:32px;overflow:hidden;background:radial-gradient(ellipse at center,#171719 0%,#050506 100%)}
 .voice.on{display:flex;animation:fadeIn .5s var(--smooth)}
@@ -451,7 +449,6 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
 .vo-trans .m{color:var(--silver-2);margin-top:12px;display:block}
 .vo-hint{font-size:11.5px;color:#5a5a62;font-family:var(--f-mono);letter-spacing:.12em;text-transform:uppercase}
 
-/* PREVIEW */
 .preview{position:fixed;inset:0;z-index:300;background:#050506;display:flex;flex-direction:column;
   opacity:0;transition:opacity .35s var(--smooth)}
 .preview.on{opacity:1}
@@ -498,7 +495,6 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;
 .pv-foot kbd{font:500 10.5px var(--f-mono);padding:1px 5px;border:1px solid rgba(255,255,255,.1);
   border-radius:4px;background:rgba(255,255,255,.04);color:#A8A8B0;margin:0 3px}
 
-/* DIALOG */
 dialog{border:1px solid var(--line2);background:var(--bg2);color:var(--tx);padding:0;width:min(720px,94vw);
   max-height:88dvh;border-radius:20px;box-shadow:var(--sh3);margin:auto;overflow:hidden}
 dialog[open]{animation:dIn .5s var(--spring)}
@@ -526,7 +522,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
 .sf input[type=range]:focus{box-shadow:none}
 @media(max-width:560px){.sg{grid-template-columns:1fr}}
 
-/* AUTH */
 .auth{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;
   padding:24px;background:var(--bg);overflow:hidden}
 .auth::before{content:"";position:absolute;width:800px;height:800px;top:50%;left:50%;
@@ -551,7 +546,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
 .auth-card .ft{font-size:11px;color:var(--tx3);text-align:center;font-family:var(--f-mono);letter-spacing:.05em;margin-top:4px}
 .auth-card .ft b{color:var(--silver-2);font-weight:500}
 
-/* ADMIN */
 .admin{position:fixed;inset:0;z-index:450;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
 .admin-h{height:60px;display:flex;align-items:center;gap:14px;padding:0 20px;
   border-bottom:1px solid var(--line);background:var(--bg2)}
@@ -613,7 +607,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   .adm-tbl th:nth-child(4),.adm-tbl td:nth-child(4){display:none}
 }
 
-/* TOAST */
 #toasts{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:500;
   display:grid;gap:10px;justify-items:center;width:max-content;max-width:94vw;pointer-events:none}
 .toast{display:flex;gap:14px;align-items:center;background:var(--bg2);color:var(--tx);padding:12px 18px;
@@ -722,7 +715,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
 
 <div id="loadbar"></div>
 
-<!-- AUTH -->
 <div class="auth" id="auth">
   <div class="auth-card">
     <svg class="lg" viewBox="0 0 64 64"><use href="#paanz-logo"/></svg>
@@ -735,7 +727,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div>
 </div>
 
-<!-- APP -->
 <div class="app" id="app" hidden>
   <aside class="side" id="side">
     <div class="side-h">
@@ -807,7 +798,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </section>
 </div>
 
-<!-- LIMIT POPOVER -->
 <div class="lim-pop" id="limPop" hidden>
   <div class="lim-h">
     <span class="tt"><svg class="ic"><use href="#i-gauge"/></svg><span data-i18n="limitTitle">Limit Paanz Tech</span></span>
@@ -821,7 +811,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div>
 </div>
 
-<!-- VOICE -->
 <div class="voice" id="voice" hidden>
   <div class="vo-top">
     <div class="brand">
@@ -841,7 +830,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div>
 </div>
 
-<!-- PREVIEW -->
 <div class="preview" id="preview" hidden>
   <div class="pv-top">
     <div class="pv-info">
@@ -871,7 +859,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   <div class="pv-foot"><kbd>Esc</kbd> tutup · <kbd>Ctrl</kbd>+<kbd>R</kbd> muat ulang</div>
 </div>
 
-<!-- SETTINGS -->
 <dialog id="setDlg">
   <div class="dh"><h3 data-i18n="settings">Pengaturan</h3><button class="ib" data-close><svg class="ic"><use href="#i-x"/></svg></button></div>
   <div class="db"><div class="sg">
@@ -931,7 +918,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div></div>
 </dialog>
 
-<!-- ADMIN -->
 <div class="admin" id="admin" hidden>
   <div class="admin-h">
     <div class="ttl">
@@ -984,229 +970,107 @@ const I18N = {
   id:{
     authSub:'Masuk dengan akun Google untuk mulai. Percakapan Anda akan tersimpan otomatis sampai Anda keluar.',
     authNote:'Login <b>wajib</b> agar riwayat & pengaturan Anda tersimpan per akun.<br>Dikembangkan oleh <b>Mr.Paanz</b>.',
-    newChat:'Percakapan baru',
-    newChatTitle:'Percakapan baru',
-    searchPh:'Cari percakapan…',
-    clearTitle:'Bersihkan',
-    sideToggleTitle:'Sembunyikan sidebar',
-    menuBtnTitle:'Toggle sidebar',
-    settings:'Pengaturan',
-    menuAccount:'Menu akun',
-    logout:'Keluar akun',
+    newChat:'Percakapan baru',newChatTitle:'Percakapan baru',searchPh:'Cari percakapan…',
+    clearTitle:'Bersihkan',sideToggleTitle:'Sembunyikan sidebar',menuBtnTitle:'Toggle sidebar',
+    settings:'Pengaturan',menuAccount:'Menu akun',logout:'Keluar akun',
     logoutConfirm:'Keluar dari akun ini? Data Anda tetap tersimpan dan akan dimuat lagi saat login.',
-    themeTooltip:'Ganti tema',
-    clearTooltip:'Hapus percakapan ini',
-    limitTooltip:'Limit & kuota Paanz Tech',
-    attachTooltip:'Lampirkan berkas teks',
-    voiceTooltip:'Percakapan suara',
-    sendTitle:'Kirim',
-    inputPh:'Tanya apa saja ke Paanz AI…',
+    themeTooltip:'Ganti tema',clearTooltip:'Hapus percakapan ini',
+    limitTooltip:'Limit & kuota Paanz Tech',attachTooltip:'Lampirkan berkas teks',
+    voiceTooltip:'Percakapan suara',sendTitle:'Kirim',inputPh:'Tanya apa saja ke Paanz AI…',
     hint:'Paanz AI bisa keliru. Periksa informasi penting. <kbd>Enter</kbd> kirim · <kbd>Shift+Enter</kbd> baris baru · <kbd>Ctrl+K</kbd> chat baru · <kbd>Ctrl+F</kbd> cari',
-    you:'Anda',
-    ai:'Paanz AI',
-    thinking:'Proses berpikir',
-    copy:'Salin',
-    speak:'Bacakan',
-    regen:'Ulangi',
-    copied:'Tersalin',
-    stop:'Hentikan',
-    emptyChat:'Percakapan masih kosong.',
-    clearConfirm:'Hapus semua pesan di percakapan ini?',
-    delConfirm:'Hapus percakapan',
-    contextCleared:'Konteks dibersihkan.',
-    noSupport:'Pengenalan suara tidak didukung. Gunakan Chrome atau Edge.',
-    micDenied:'Izin mikrofon ditolak.',
-    listen:'Mendengarkan',
-    think:'Berpikir',
-    answering:'Menjawab',
-    failed:'Gagal',
-    noAnswer:'Tidak ada jawaban',
-    voiceHint:'Ketuk orb untuk menghentikan & bicara · Esc keluar',
+    you:'Anda',ai:'Paanz AI',thinking:'Proses berpikir',copy:'Salin',speak:'Bacakan',regen:'Ulangi',
+    copied:'Tersalin',stop:'Hentikan',emptyChat:'Percakapan masih kosong.',
+    clearConfirm:'Hapus semua pesan di percakapan ini?',delConfirm:'Hapus percakapan',
+    contextCleared:'Konteks dibersihkan.',noSupport:'Pengenalan suara tidak didukung. Gunakan Chrome atau Edge.',
+    micDenied:'Izin mikrofon ditolak.',listen:'Mendengarkan',think:'Berpikir',answering:'Menjawab',
+    failed:'Gagal',noAnswer:'Tidak ada jawaban',voiceHint:'Ketuk orb untuk menghentikan & bicara · Esc keluar',
     hello:'Halo, saya',
     welcomeSub:'Asisten cerdas yang dikembangkan oleh <strong>Mr.Paanz</strong>. Siap menemani menulis, coding dengan preview langsung, analisis, dan brainstorming.',
-    sugCalc:'Web kalkulator',
-    sugCalcSub:'HTML full + preview',
+    sugCalc:'Web kalkulator',sugCalcSub:'HTML full + preview',
     sugCalcP:'Buatkan saya web kalkulator HTML rapi full code (satu file). Desain minimalis, tipografi bersih, warna netral + satu aksen. Support keyboard, riwayat perhitungan, dan responsive.',
-    sugLand:'Landing page',
-    sugLandSub:'HTML + CSS + JS',
+    sugLand:'Landing page',sugLandSub:'HTML + CSS + JS',
     sugLandP:'Buat landing page untuk aplikasi mobile bernama Nimbus — tracker cuaca minimalis. Satu file HTML lengkap. Gaya: bersih, tipografi besar, warna netral + satu aksen.',
-    sugUI:'Komponen UI',
-    sugUISub:'Pricing table interaktif',
+    sugUI:'Komponen UI',sugUISub:'Pricing table interaktif',
     sugUIP:'Buat komponen pricing table 3 tier untuk SaaS dengan toggle bulanan/tahunan. Satu file HTML. Gaya modern seperti Linear/Vercel, tanpa gradient berlebihan.',
-    sugConcept:'Jelaskan konsep',
-    sugConceptSub:'Dengan analogi',
+    sugConcept:'Jelaskan konsep',sugConceptSub:'Dengan analogi',
     sugConceptP:'Jelaskan cara kerja HTTP request-response dengan analogi restoran. Singkat tapi konkret, dengan 2 contoh nyata.',
-    hAccount:'Akun',
-    hApi:'API Groq',
+    hAccount:'Akun',hApi:'API Groq',
     groqHelp:'Gratis di <b>console.groq.com/keys</b>. Limit gratis <b>gpt-oss-120b</b>: 30 permintaan/menit · 1.000/hari · 8.000 token/menit · 200.000 token/hari.',
-    hModel:'Model & Suara',
-    modelLabel:'Model',
-    tempLabel:'Temperature',
-    sysLabel:'System prompt',
+    hModel:'Model & Suara',modelLabel:'Model',tempLabel:'Temperature',sysLabel:'System prompt',
     sysPh:'Kosongkan untuk kepribadian default Paanz AI',
-    hAppearance:'Tampilan',
-    themeLabel:'Tema',
-    themeAuto:'Ikuti sistem',
-    themeLight:'Terang (Silver)',
-    themeDark:'Gelap (Black)',
-    langLabel:'Bahasa',
-    hLimit:'Limit & Kuota',
+    hAppearance:'Tampilan',themeLabel:'Tema',themeAuto:'Ikuti sistem',themeLight:'Terang (Silver)',themeDark:'Gelap (Black)',
+    langLabel:'Bahasa',hLimit:'Limit & Kuota',
     limNote:'Angka diambil dari header <b>x-ratelimit-*</b> Groq bila tersedia, sisanya dihitung lokal. Limit menit bersifat <b>rolling 60 detik</b>, limit harian pulih <b>00:00 UTC (07:00 WIB)</b>.',
-    hData:'Data',
-    exportBtn:'Ekspor percakapan',
-    resetBtn:'Hapus data akun ini',
+    hData:'Data',exportBtn:'Ekspor percakapan',resetBtn:'Hapus data akun ini',
     resetConfirm:'Hapus semua percakapan & pengaturan untuk akun ini?',
     limitTitle:'Limit Paanz Tech',
-    safe:'Aman',
-    thin:'Menipis',
-    critical:'Kritis',
-    used:'Habis',
-    rpm:'Pesan per menit',
-    tpm:'Token per menit',
-    rpd:'Pesan per hari',
-    tpd:'Token per hari',
-    left:'sisa',
-    resetIn:'pulih dalam',
-    live:'Live',
-    now:'sekarang',
-    admin:'Panel Admin',
-    adminVerify:'Verifikasi Admin',
+    safe:'Aman',thin:'Menipis',critical:'Kritis',used:'Habis',
+    rpm:'Pesan per menit',tpm:'Token per menit',rpd:'Pesan per hari',tpd:'Token per hari',
+    left:'sisa',resetIn:'pulih dalam',live:'Live',now:'sekarang',
+    admin:'Panel Admin',adminVerify:'Verifikasi Admin',
     adminDesc:'Masukkan password untuk melihat daftar pengguna terdaftar.',
-    adminLoginBtn:'Masuk',
-    adminWrong:'Password salah.',
-    searchEmpty:'Belum ada percakapan.',
-    searchResults:'Hasil',
-    today:'Hari ini',
-    yesterday:'Kemarin',
-    last7:'7 hari terakhir',
-    last30:'30 hari terakhir',
-    older:'Lebih lama',
-    clientIdMissing:'Client ID belum diatur.',
-    demoLogin:'Lanjutkan Mode Demo',
+    adminLoginBtn:'Masuk',adminWrong:'Password salah.',
+    searchEmpty:'Belum ada percakapan.',searchResults:'Hasil',
+    today:'Hari ini',yesterday:'Kemarin',last7:'7 hari terakhir',last30:'30 hari terakhir',older:'Lebih lama',
+    clientIdMissing:'Client ID belum diatur.',demoLogin:'Lanjutkan Mode Demo',
     groqKeyMissing:'API key Groq belum diisi. Buka Pengaturan.',
-    connFail:'Koneksi ke Groq gagal.',
-    keyInvalid:'API key Groq tidak valid.',
-    balInsufficient:'Saldo Groq tidak cukup.',
-    rateLimit:'Limit Groq tercapai. Menunggu…',
-    serverBusy:'Server Groq sedang sibuk.',
-    retryBusy:'Server sibuk. Mencoba lagi',
-    failPrefix:'Gagal: ',
-    aborted:'(Dihentikan)',
-    noResponse:'(Tidak ada jawaban. Coba lagi.)',
+    connFail:'Koneksi ke Groq gagal.',keyInvalid:'API key Groq tidak valid.',
+    balInsufficient:'Saldo Groq tidak cukup.',rateLimit:'Limit Groq tercapai. Menunggu…',
+    serverBusy:'Server Groq sedang sibuk.',retryBusy:'Server sibuk. Mencoba lagi',
+    failPrefix:'Gagal: ',aborted:'(Dihentikan)',noResponse:'(Tidak ada jawaban. Coba lagi.)',
     hr:'j',min:'m',sec:'s'
   },
   en:{
     authSub:'Sign in with your Google account to start. Your conversations will be saved automatically until you log out.',
     authNote:'Login <b>required</b> so your history & settings are saved per account.<br>Developed by <b>Mr.Paanz</b>.',
-    newChat:'New chat',
-    newChatTitle:'New chat',
-    searchPh:'Search conversations…',
-    clearTitle:'Clear',
-    sideToggleTitle:'Hide sidebar',
-    menuBtnTitle:'Toggle sidebar',
-    settings:'Settings',
-    menuAccount:'Account menu',
-    logout:'Log out',
+    newChat:'New chat',newChatTitle:'New chat',searchPh:'Search conversations…',
+    clearTitle:'Clear',sideToggleTitle:'Hide sidebar',menuBtnTitle:'Toggle sidebar',
+    settings:'Settings',menuAccount:'Account menu',logout:'Log out',
     logoutConfirm:'Log out of this account? Your data stays saved and will reload when you log in again.',
-    themeTooltip:'Toggle theme',
-    clearTooltip:'Delete this chat',
-    limitTooltip:'Paanz Tech limits & quota',
-    attachTooltip:'Attach text file',
-    voiceTooltip:'Voice conversation',
-    sendTitle:'Send',
-    inputPh:'Ask Paanz AI anything…',
+    themeTooltip:'Toggle theme',clearTooltip:'Delete this chat',
+    limitTooltip:'Paanz Tech limits & quota',attachTooltip:'Attach text file',
+    voiceTooltip:'Voice conversation',sendTitle:'Send',inputPh:'Ask Paanz AI anything…',
     hint:'Paanz AI can make mistakes. Verify important info. <kbd>Enter</kbd> send · <kbd>Shift+Enter</kbd> new line · <kbd>Ctrl+K</kbd> new chat · <kbd>Ctrl+F</kbd> search',
-    you:'You',
-    ai:'Paanz AI',
-    thinking:'Thinking process',
-    copy:'Copy',
-    speak:'Speak',
-    regen:'Regenerate',
-    copied:'Copied',
-    stop:'Stop',
-    emptyChat:'Conversation is still empty.',
-    clearConfirm:'Delete all messages in this chat?',
-    delConfirm:'Delete conversation',
-    contextCleared:'Context cleared.',
-    noSupport:'Speech recognition not supported. Use Chrome or Edge.',
-    micDenied:'Microphone permission denied.',
-    listen:'Listening',
-    think:'Thinking',
-    answering:'Answering',
-    failed:'Failed',
-    noAnswer:'No answer',
-    voiceHint:'Tap the orb to stop & speak · Esc to exit',
+    you:'You',ai:'Paanz AI',thinking:'Thinking process',copy:'Copy',speak:'Speak',regen:'Regenerate',
+    copied:'Copied',stop:'Stop',emptyChat:'Conversation is still empty.',
+    clearConfirm:'Delete all messages in this chat?',delConfirm:'Delete conversation',
+    contextCleared:'Context cleared.',noSupport:'Speech recognition not supported. Use Chrome or Edge.',
+    micDenied:'Microphone permission denied.',listen:'Listening',think:'Thinking',answering:'Answering',
+    failed:'Failed',noAnswer:'No answer',voiceHint:'Tap the orb to stop & speak · Esc to exit',
     hello:"Hi, I'm",
     welcomeSub:'A smart assistant developed by <strong>Mr.Paanz</strong>. Ready to help you write, code with live preview, analyze, and brainstorm.',
-    sugCalc:'Calculator web',
-    sugCalcSub:'Full HTML + preview',
+    sugCalc:'Calculator web',sugCalcSub:'Full HTML + preview',
     sugCalcP:'Create a clean, complete HTML calculator (single file). Minimalist design, clean typography, neutral palette + one accent. Support keyboard, calculation history, and responsive.',
-    sugLand:'Landing page',
-    sugLandSub:'HTML + CSS + JS',
+    sugLand:'Landing page',sugLandSub:'HTML + CSS + JS',
     sugLandP:'Create a landing page for a mobile app called Nimbus — minimal weather tracker. One complete HTML file. Style: clean, large typography, neutral palette + one accent.',
-    sugUI:'UI component',
-    sugUISub:'Interactive pricing table',
+    sugUI:'UI component',sugUISub:'Interactive pricing table',
     sugUIP:'Create a 3-tier pricing table component for SaaS with monthly/yearly toggle. Single HTML file. Modern style like Linear/Vercel, no excessive gradients.',
-    sugConcept:'Explain a concept',
-    sugConceptSub:'With analogy',
+    sugConcept:'Explain a concept',sugConceptSub:'With analogy',
     sugConceptP:'Explain how HTTP request-response works using a restaurant analogy. Concise but concrete, with 2 real examples.',
-    hAccount:'Account',
-    hApi:'Groq API',
+    hAccount:'Account',hApi:'Groq API',
     groqHelp:'Free at <b>console.groq.com/keys</b>. Free tier for <b>gpt-oss-120b</b>: 30 requests/min · 1,000/day · 8,000 tokens/min · 200,000 tokens/day.',
-    hModel:'Model & Voice',
-    modelLabel:'Model',
-    tempLabel:'Temperature',
-    sysLabel:'System prompt',
+    hModel:'Model & Voice',modelLabel:'Model',tempLabel:'Temperature',sysLabel:'System prompt',
     sysPh:'Leave empty for default Paanz AI personality',
-    hAppearance:'Appearance',
-    themeLabel:'Theme',
-    themeAuto:'System',
-    themeLight:'Light (Silver)',
-    themeDark:'Dark (Black)',
-    langLabel:'Language',
-    hLimit:'Limits & Quota',
+    hAppearance:'Appearance',themeLabel:'Theme',themeAuto:'System',themeLight:'Light (Silver)',themeDark:'Dark (Black)',
+    langLabel:'Language',hLimit:'Limits & Quota',
     limNote:'Numbers come from Groq\'s <b>x-ratelimit-*</b> headers when available, otherwise calculated locally. Minute limits are <b>rolling 60 seconds</b>, daily limits reset at <b>00:00 UTC</b>.',
-    hData:'Data',
-    exportBtn:'Export chat',
-    resetBtn:'Delete this account\'s data',
+    hData:'Data',exportBtn:'Export chat',resetBtn:'Delete this account\'s data',
     resetConfirm:'Delete all conversations & settings for this account?',
     limitTitle:'Paanz Tech Limits',
-    safe:'Safe',
-    thin:'Low',
-    critical:'Critical',
-    used:'Exhausted',
-    rpm:'Messages / minute',
-    tpm:'Tokens / minute',
-    rpd:'Messages / day',
-    tpd:'Tokens / day',
-    left:'left',
-    resetIn:'resets in',
-    live:'Live',
-    now:'now',
-    admin:'Admin Panel',
-    adminVerify:'Admin Verification',
+    safe:'Safe',thin:'Low',critical:'Critical',used:'Exhausted',
+    rpm:'Messages / minute',tpm:'Tokens / minute',rpd:'Messages / day',tpd:'Tokens / day',
+    left:'left',resetIn:'resets in',live:'Live',now:'now',
+    admin:'Admin Panel',adminVerify:'Admin Verification',
     adminDesc:'Enter the password to view registered users.',
-    adminLoginBtn:'Enter',
-    adminWrong:'Wrong password.',
-    searchEmpty:'No conversations yet.',
-    searchResults:'Results',
-    today:'Today',
-    yesterday:'Yesterday',
-    last7:'Last 7 days',
-    last30:'Last 30 days',
-    older:'Older',
-    clientIdMissing:'Client ID not configured.',
-    demoLogin:'Continue in Demo Mode',
+    adminLoginBtn:'Enter',adminWrong:'Wrong password.',
+    searchEmpty:'No conversations yet.',searchResults:'Results',
+    today:'Today',yesterday:'Yesterday',last7:'Last 7 days',last30:'Last 30 days',older:'Older',
+    clientIdMissing:'Client ID not configured.',demoLogin:'Continue in Demo Mode',
     groqKeyMissing:'Groq API key is not set. Open Settings.',
-    connFail:'Failed to connect to Groq.',
-    keyInvalid:'Invalid Groq API key.',
-    balInsufficient:'Insufficient Groq balance.',
-    rateLimit:'Groq limit reached. Waiting…',
-    serverBusy:'Groq server is busy.',
-    retryBusy:'Server busy. Retrying',
-    failPrefix:'Failed: ',
-    aborted:'(Stopped)',
-    noResponse:'(No response. Try again.)',
+    connFail:'Failed to connect to Groq.',keyInvalid:'Invalid Groq API key.',
+    balInsufficient:'Insufficient Groq balance.',rateLimit:'Groq limit reached. Waiting…',
+    serverBusy:'Groq server is busy.',retryBusy:'Server busy. Retrying',
+    failPrefix:'Failed: ',aborted:'(Stopped)',noResponse:'(No response. Try again.)',
     hr:'h',min:'m',sec:'s'
   }
 };
@@ -1281,7 +1145,6 @@ function deviceInfo(){
 }
 function hashEmail(e){return encodeURIComponent((e||'').toLowerCase());}
 
-/* ===================== PROVIDERS ===================== */
 const PROVIDERS={
   groq:{
     name:'Groq',base:'https://api.groq.com/openai/v1',
@@ -1301,7 +1164,6 @@ const LIMITS={
 };
 const limOf=()=>LIMITS[S.settings.model]||{rpm:30,rpd:1000,tpm:8000,tpd:200000};
 
-/* ===================== ACCOUNT STORAGE ===================== */
 const AK='paanz.accounts.v1';
 let ACC={users:{},session:null};
 function loadAccounts(){
@@ -1316,13 +1178,8 @@ function getAccount(email){
   return ACC.users[hashEmail(email)]||null;
 }
 
-/* ===================== STATE ===================== */
 const KEY='paanz.ai.v6';
-const DEF={
-  keys:{groq:''},
-  model:'openai/gpt-oss-120b',
-  temp:0.8,systemPrompt:'',lang:'id-ID',theme:'dark',reduce:false
-};
+const DEF={keys:{groq:''},model:'openai/gpt-oss-120b',temp:0.8,systemPrompt:'',lang:'id-ID',theme:'dark',reduce:false};
 const S={settings:JSON.parse(JSON.stringify(DEF)),threads:[],active:null,
   sidebarCollapsed:false,search:'',usage:{reqs:[],srv:null},user:null};
 
@@ -1393,7 +1250,6 @@ function delThread(id){
   save();renderThreads();renderChat();
 }
 
-/* ===================== THEME ===================== */
 function applyTheme(){
   const t2=S.settings.theme;
   const dark=t2==='dark'||(t2==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);
@@ -1414,7 +1270,6 @@ function toast(msg,o={}){
 let busyN=0;
 function busy(on){busyN+=on?1:-1;$('#loadbar').classList.toggle('on',busyN>0);}
 
-/* ===================== CLIPBOARD ===================== */
 async function copyText(text){
   text=String(text==null?'':text);
   try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text);return true;}}catch(e){}
@@ -1435,7 +1290,6 @@ function flashDone(btn,label){
   btn._doneT=setTimeout(()=>{btn.classList.remove('done');btn.innerHTML=btn._orig;btn._doneT=null;},1600);
 }
 
-/* ===================== PREVIEW ===================== */
 function isPreviewable(code,lang){
   const L=(lang||'').toLowerCase();
   if(L==='html'||L==='htm')return true;
@@ -1495,7 +1349,6 @@ function setPreviewDevice(d){
   const f=$('#pvFrame');f.classList.remove('mobile','tablet','desktop');f.classList.add(d);
 }
 
-/* ===================== MARKDOWN ===================== */
 function md(tx){
   const blocks=[];
   tx=String(tx).replace(/```(\w*)\n?([\s\S]*?)```/g,(_,lang,code)=>{
@@ -1538,7 +1391,6 @@ const plain=tx=>String(tx)
   .replace(/```[\s\S]*?```/g,' ').replace(/[*_`#>~]/g,'')
   .replace(/^\s*[-\u2022]\s+/gm,'').replace(/\s+/g,' ').trim();
 
-/* ===================== RENDER THREADS ===================== */
 function highlight(text,q){
   if(!q)return esc(text);
   const idx=text.toLowerCase().indexOf(q.toLowerCase());
@@ -1595,7 +1447,6 @@ function renderThreads(){
   list.innerHTML=html;
 }
 
-/* ===================== RENDER CHAT ===================== */
 function renderChat(){
   const t2=cur();
   $('#chatTitle').textContent=t2?(t2.title||t('newChatTitle')):t('newChatTitle');
@@ -1692,7 +1543,6 @@ function scrollEnd(instant){
   c.scrollTo({top:c.scrollHeight,behavior:instant?'auto':'smooth'});
 }
 
-/* ===================== LIMIT MODULE ===================== */
 const LIM_C=97.39;
 const fmtNum=n=>{
   n=Math.round(n||0);
@@ -1797,7 +1647,6 @@ function closeLimPop(){
   setTimeout(()=>{p.hidden=true;p.classList.remove('out');},220);
 }
 
-/* ===================== API CLIENT ===================== */
 const AI={busy:false,abort:null,att:[]};
 function readRateHeaders(r){
   try{
@@ -1904,7 +1753,6 @@ function sysPrompt(){
     'Untuk HTML lengkap: SATU code block ```html ... ``` supaya bisa langsung preview.';
 }
 
-/* ===================== SEND ===================== */
 function setSendState(){
   const b=$('#sendBtn');
   if(!b)return;
@@ -1996,7 +1844,6 @@ async function send(text){
   save();renderThreads();
 }
 
-/* ===================== ATTACHMENTS ===================== */
 const TEXT_EXT=['txt','md','csv','json','html','htm','xml','log','py','js','ts','jsx','tsx',
   'css','scss','less','sql','yaml','yml','toml','sh','bash','bat','ps1','env','ini','conf',
   'go','rs','java','c','cpp','h','hpp','rb','php','swift','kt','dart','r','lua','vue','svelte'];
@@ -2022,7 +1869,6 @@ function renderAtt(){
   setSendState();
 }
 
-/* ===================== SPEECH ===================== */
 let speaking=0;
 function stopSpeak(){
   speaking++;
@@ -2056,7 +1902,6 @@ function browserSpeak(text,my){
   });
 }
 
-/* ===================== MIC ===================== */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 const Mic={
   rec:null,supported:!!SR,
@@ -2080,7 +1925,6 @@ const Mic={
   }
 };
 
-/* ===================== VOICE ===================== */
 const VO={on:false};
 function voOpen(){
   if(!Mic.supported){toast(t('noSupport'));return;}
@@ -2171,16 +2015,13 @@ async function voAsk(text){
   if(VO.on)voListen();
 }
 
-/* ===================== SETTINGS ===================== */
 function fillModels(){
   const prov=curProvider();
   const sel=$('#s_model');if(!sel)return;
   sel.innerHTML=prov.models.map(m=>'<option value="'+m.id+'">'+m.name+'</option>').join('');
   sel.value=S.settings.model;
 }
-function updateProviderUI(){
-  renderLimit();
-}
+function updateProviderUI(){renderLimit();}
 function fillAccountUI(){
   if(!S.user)return;
   const av=$('#userAvatar'),nm=$('#userName'),em=$('#userEmail'),
@@ -2219,7 +2060,6 @@ function bindSettings(){
   if(sl){sl.value=LANG;sl.addEventListener('change',()=>setLang(sl.value));}
 }
 
-/* ===================== EXPORT ===================== */
 function exportThread(){
   const t2=cur();if(!t2)return;
   const lines=[];
@@ -2238,7 +2078,6 @@ function exportThread(){
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
 
-/* ===================== AUTOSIZE / SIDEBAR ===================== */
 function autosize(){
   const t2=$('#inp');if(!t2)return;
   t2.style.height='auto';
@@ -2248,7 +2087,6 @@ function autosize(){
 function openSidebar(){$('#app').classList.add('mobile-open');}
 function closeSidebar(){$('#app').classList.remove('mobile-open');}
 
-/* ===================== ADMIN ===================== */
 const ADM={open:false,authed:false};
 function openAdmin(){
   ADM.open=true;
@@ -2330,7 +2168,6 @@ function adminTryUnlock(){
   }
 }
 
-/* ===================== AUTH ===================== */
 const AUTH={inited:false};
 function authSetError(m){const e=$('#authErr');if(e)e.textContent=m||'';}
 function renderGoogleButton(){
@@ -2444,9 +2281,7 @@ function authInit(){
   renderGoogleButton();
 }
 
-/* ===================== INIT ===================== */
 function init(){
-  /* Lang init */
   try{const saved=localStorage.getItem('paanz.lang');if(saved==='en'||saved==='id')LANG=saved;}catch(e){}
   applyLang();
 
