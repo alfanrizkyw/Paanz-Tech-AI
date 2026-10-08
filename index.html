@@ -715,18 +715,28 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
 
 <div id="loadbar"></div>
 
+<!-- AUTH -->
 <div class="auth" id="auth">
   <div class="auth-card">
     <svg class="lg" viewBox="0 0 64 64"><use href="#paanz-logo"/></svg>
     <h1>Paanz <em>AI</em></h1>
     <div class="sub" data-i18n="authSub">Masuk dengan akun Google untuk mulai. Percakapan Anda akan tersimpan otomatis sampai Anda keluar.</div>
     <div class="gbox" id="gSignIn"></div>
-    <div id="authErr" style="color:var(--danger);font-size:12px;font-family:var(--f-mono);min-height:14px;text-align:center"></div>
+    <div id="authErr" style="color:var(--danger);font-size:12px;font-family:var(--f-mono);min-height:14px;text-align:center;line-height:1.5"></div>
+    <div id="authActions" style="display:none;flex-direction:column;gap:8px;width:100%">
+      <button type="button" class="btn" id="retryGoogleBtn" style="width:100%;justify-content:center">
+        <svg class="ic"><use href="#i-refresh"/></svg>Coba lagi Google Sign-In
+      </button>
+      <button type="button" class="btn ghost" id="demoFallbackBtn" style="width:100%;justify-content:center;font-size:12px">
+        Lanjut Mode Demo (tanpa Google)
+      </button>
+    </div>
     <div class="note" data-i18n="authNote">Login <b>wajib</b> agar riwayat & pengaturan Anda tersimpan per akun.<br>Dikembangkan oleh <b>Mr.Paanz</b>.</div>
     <div class="ft" id="authFt">Paanz AI v7</div>
   </div>
 </div>
 
+<!-- APP -->
 <div class="app" id="app" hidden>
   <aside class="side" id="side">
     <div class="side-h">
@@ -798,6 +808,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </section>
 </div>
 
+<!-- LIMIT POPOVER -->
 <div class="lim-pop" id="limPop" hidden>
   <div class="lim-h">
     <span class="tt"><svg class="ic"><use href="#i-gauge"/></svg><span data-i18n="limitTitle">Limit Paanz Tech</span></span>
@@ -811,6 +822,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div>
 </div>
 
+<!-- VOICE -->
 <div class="voice" id="voice" hidden>
   <div class="vo-top">
     <div class="brand">
@@ -830,6 +842,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div>
 </div>
 
+<!-- PREVIEW -->
 <div class="preview" id="preview" hidden>
   <div class="pv-top">
     <div class="pv-info">
@@ -859,6 +872,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   <div class="pv-foot"><kbd>Esc</kbd> tutup · <kbd>Ctrl</kbd>+<kbd>R</kbd> muat ulang</div>
 </div>
 
+<!-- SETTINGS -->
 <dialog id="setDlg">
   <div class="dh"><h3 data-i18n="settings">Pengaturan</h3><button class="ib" data-close><svg class="ic"><use href="#i-x"/></svg></button></div>
   <div class="db"><div class="sg">
@@ -918,6 +932,7 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:
   </div></div>
 </dialog>
 
+<!-- ADMIN -->
 <div class="admin" id="admin" hidden>
   <div class="admin-h">
     <div class="ttl">
@@ -1206,40 +1221,48 @@ const nt=t=>({
   history:(t.history||[]).map(normalizeMsg).filter(Boolean)
 });
 function loadUserData(){
-  const acc=getAccount(S.user.email);
-  const d=acc&&acc.data;
-  S.settings=JSON.parse(JSON.stringify(DEF));
-  S.threads=[];S.active=null;S.sidebarCollapsed=false;S.usage={reqs:[],srv:null};
-  if(d){
-    S.settings={...DEF,...(d.settings||{})};
-    if(!S.settings.keys)S.settings.keys={...DEF.keys};
-    S.threads=(d.threads||[]).map(nt);
-    S.active=d.active||null;
-    S.sidebarCollapsed=!!d.sidebarCollapsed;
-    S.usage=(d.usage&&Array.isArray(d.usage.reqs))?{reqs:d.usage.reqs,srv:d.usage.srv||null}:{reqs:[],srv:null};
+  try {
+    const acc=getAccount(S.user.email);
+    const d=acc&&acc.data;
+    S.settings=JSON.parse(JSON.stringify(DEF));
+    S.threads=[];S.active=null;S.sidebarCollapsed=false;S.usage={reqs:[],srv:null};
+    if(d){
+      S.settings={...DEF,...(d.settings||{})};
+      if(!S.settings.keys)S.settings.keys={...DEF.keys};
+      S.threads=(d.threads||[]).map(nt).filter(Boolean);
+      S.active=d.active||null;
+      S.sidebarCollapsed=!!d.sidebarCollapsed;
+      S.usage=(d.usage&&Array.isArray(d.usage.reqs))?{reqs:d.usage.reqs,srv:d.usage.srv||null}:{reqs:[],srv:null};
+    }
+    if(!S.settings.keys.groq){
+      try{
+        const legacy=localStorage.getItem(KEY);
+        if(legacy){
+          const ld=JSON.parse(legacy);
+          if(ld.settings&&ld.settings.keys&&ld.settings.keys.groq)S.settings.keys.groq=ld.settings.keys.groq;
+          if(!S.threads.length&&Array.isArray(ld.threads))S.threads=ld.threads.map(nt).filter(Boolean);
+        }
+      }catch(e){}
+    }
+    const prov=PROVIDERS.groq;
+    if(!prov.models.find(m=>m.id===S.settings.model))S.settings.model=prov.models[0].id;
+    if(!S.threads.length)mkThread(true);
+    if(!S.active||!S.threads.find(t=>t.id===S.active))S.active=S.threads[0].id;
+  } catch(err){
+    console.error('loadUserData error:', err);
+    // Reset to safe defaults
+    S.settings=JSON.parse(JSON.stringify(DEF));
+    S.threads=[];S.active=null;S.usage={reqs:[],srv:null};
+    mkThread(true);
   }
-  if(!S.settings.keys.groq){
-    try{
-      const legacy=localStorage.getItem(KEY);
-      if(legacy){
-        const ld=JSON.parse(legacy);
-        if(ld.settings&&ld.settings.keys&&ld.settings.keys.groq)S.settings.keys.groq=ld.settings.keys.groq;
-        if(!S.threads.length&&ld.threads)S.threads=ld.threads.map(nt);
-      }
-    }catch(e){}
-  }
-  const prov=PROVIDERS.groq;
-  if(!prov.models.find(m=>m.id===S.settings.model))S.settings.model=prov.models[0].id;
-  if(!S.threads.length)mkThread(true);
-  if(!S.active||!S.threads.find(t=>t.id===S.active))S.active=S.threads[0].id;
 }
 const cur=()=>S.threads.find(t=>t.id===S.active)||S.threads[0];
 const curProvider=()=>PROVIDERS.groq;
 
 function mkThread(silent){
-  const t=nt({});S.threads.unshift(t);S.active=t.id;save();
+  const th=nt({});S.threads.unshift(th);S.active=th.id;save();
   if(!silent){renderThreads();renderChat();}
-  return t;
+  return th;
 }
 function pickThread(id){S.active=id;save();renderThreads();renderChat();if(isMobile())closeSidebar();}
 function delThread(id){
@@ -1448,17 +1471,21 @@ function renderThreads(){
 }
 
 function renderChat(){
-  const t2=cur();
-  $('#chatTitle').textContent=t2?(t2.title||t('newChatTitle')):t('newChatTitle');
-  const inner=$('#chatInner');
-  if(!t2||!t2.history.length){
-    inner.innerHTML=welcomeHTML();bindWelcome();return;
+  try {
+    const t2=cur();
+    $('#chatTitle').textContent=t2?(t2.title||t('newChatTitle')):t('newChatTitle');
+    const inner=$('#chatInner');
+    if(!t2||!t2.history.length){
+      inner.innerHTML=welcomeHTML();bindWelcome();return;
+    }
+    inner.innerHTML='';
+    for(const m of t2.history){
+      appendMsg(m.role==='user'?'u':'m',m.content||'',{files:m.files,scroll:false,reasoning:m.reasoning||''});
+    }
+    scrollEnd(true);
+  } catch(e){
+    console.error('renderChat error:', e);
   }
-  inner.innerHTML='';
-  for(const m of t2.history){
-    appendMsg(m.role==='user'?'u':'m',m.content||'',{files:m.files,scroll:false,reasoning:m.reasoning||''});
-  }
-  scrollEnd(true);
 }
 function welcomeHTML(){
   return '<div class="welcome">'+
@@ -2092,7 +2119,7 @@ function openAdmin(){
   ADM.open=true;
   $('#admin').hidden=false;
   if(ADM.authed){renderAdmin();$('#adminLogin').hidden=true;$('#adminPanel').hidden=false;}
-  else{$('#adminLogin').hidden=false;$('#adminPanel').hidden=true;$('#adminPwd').focus();}
+  else{$('#adminLogin').hidden=false;$('#adminPanel').hidden=true;setTimeout(()=>$('#adminPwd').focus(),50);}
 }
 function closeAdmin(){
   ADM.open=false;
@@ -2168,29 +2195,45 @@ function adminTryUnlock(){
   }
 }
 
+/* ===================== AUTH ===================== */
 const AUTH={inited:false};
-function authSetError(m){const e=$('#authErr');if(e)e.textContent=m||'';}
-function renderGoogleButton(){
-  if(!(window.google&&google.accounts&&google.accounts.id)){
-    setTimeout(renderGoogleButton,150);return;
-  }
-  const box=$('#gSignIn');
-  const isPlaceholder=GOOGLE_CLIENT_ID.indexOf('YOUR_CLIENT_ID')===0;
-  if(isPlaceholder){
-    box.innerHTML=''+
-      '<div style="display:flex;flex-direction:column;gap:10px;align-items:center;width:100%">'+
-      '<div style="font-size:12.5px;color:var(--tx3);text-align:center;line-height:1.5">'+
-      t('clientIdMissing')+'<br>Isi <code style="font-family:var(--f-mono);color:var(--silver-2)">GOOGLE_CLIENT_ID</code> di kode.'+
-      '</div>'+
-      '<button type="button" class="btn pri" id="demoLoginBtn" style="padding:11px 22px">'+t('demoLogin')+'</button>'+
-      '</div>';
-    const b=$('#demoLoginBtn');
-    if(b)b.onclick=()=>authSuccess({
+let gsiAttempts=0;
+function authSetError(m){const e=$('#authErr');if(e)e.innerHTML=m||'';}
+function showAuthFallback(show){
+  const a=$('#authActions');if(!a)return;
+  a.style.display=show?'flex':'none';
+  const rb=$('#retryGoogleBtn');
+  if(rb)rb.onclick=()=>{
+    gsiAttempts=0;$('#gSignIn').innerHTML='';authSetError('Mencoba memuat ulang…');
+    a.style.display='none';
+    setTimeout(renderGoogleButton,300);
+  };
+  const db=$('#demoFallbackBtn');
+  if(db)db.onclick=()=>{
+    authSuccess({
       email:'demo@paanz.local',
       name:'Demo User',
       picture:'',
       sub:'demo-'+(localStorage.getItem('paanz.demo.id')||(()=>{const id=uid();localStorage.setItem('paanz.demo.id',id);return id;})())
     });
+  };
+}
+function renderGoogleButton(){
+  gsiAttempts++;
+  if(!(window.google&&google.accounts&&google.accounts.id)){
+    if(gsiAttempts<40){setTimeout(renderGoogleButton,250);}
+    else{
+      authSetError('Google Sign-In gagal dimuat.<br><small style="color:var(--tx3)">Cek koneksi internet atau matikan ad-blocker.</small>');
+      showAuthFallback(true);
+    }
+    return;
+  }
+  const box=$('#gSignIn');
+  const isPlaceholder=GOOGLE_CLIENT_ID.indexOf('YOUR_CLIENT_ID')===0;
+  if(isPlaceholder){
+    box.innerHTML='<div style="font-size:12.5px;color:var(--tx3);text-align:center;line-height:1.5">'+
+      t('clientIdMissing')+'</div>';
+    showAuthFallback(true);
     return;
   }
   try{
@@ -2198,92 +2241,155 @@ function renderGoogleButton(){
       client_id:GOOGLE_CLIENT_ID,
       callback:handleGoogleCredential,
       auto_select:false,
-      cancel_on_tap_outside:true
+      cancel_on_tap_outside:true,
+      use_fedcm_for_prompt:true
     });
     google.accounts.id.renderButton(box,{
       type:'standard',theme:'outline',size:'large',text:'signin_with',
-      shape:'pill',logo_alignment:'left',width:280,locale:LANG==='en'?'en':'id'
+      shape:'pill',logo_alignment:'left',width:280,
+      locale:LANG==='en'?'en':'id'
     });
-  }catch(e){authSetError('Failed to load Google Sign-In: '+e.message);}
+    authSetError('');
+  }catch(e){
+    authSetError('Gagal init Google: '+esc(e.message));
+    showAuthFallback(true);
+    return;
+  }
+  // Cek setelah 2.5s apakah tombol benar-benar render
+  setTimeout(()=>{
+    if(S.user)return;
+    const rendered = box.querySelector('div[role="button"], iframe, div[aria-labelledby]');
+    if(!rendered){
+      authSetError('Tombol Google tidak muncul.<br><small style="color:var(--tx3)">Kemungkinan origin <b style="color:var(--silver-2)">'+esc(location.origin)+'</b> belum ditambahkan di Google Cloud Console, atau consent screen masih Testing.</small>');
+      showAuthFallback(true);
+    }
+  },2500);
 }
 function handleGoogleCredential(resp){
-  const p=decodeJWT(resp.credential);
-  if(!p||!p.email){authSetError('Failed to read Google credential.');return;}
-  authSuccess({
-    email:p.email,
-    name:p.name||p.email.split('@')[0],
-    picture:p.picture||'',
-    sub:p.sub||'',
-    emailVerified:p.email_verified
-  });
+  try{
+    const p=decodeJWT(resp.credential);
+    if(!p||!p.email){authSetError('Failed to read Google credential.');return;}
+    authSuccess({
+      email:p.email,
+      name:p.name||p.email.split('@')[0],
+      picture:p.picture||'',
+      sub:p.sub||'',
+      emailVerified:p.email_verified
+    });
+  }catch(e){
+    console.error('handleGoogleCredential error:', e);
+    authSetError('Login error: '+esc(e.message));
+  }
 }
 function authSuccess(user){
-  S.user={email:user.email,name:user.name||user.email,picture:user.picture||''};
-  const k=hashEmail(user.email);
-  const now=Date.now();
-  const dev=deviceInfo();
-  let acc=ACC.users[k];
-  if(!acc){
-    acc={profile:{
-      email:user.email,name:S.user.name,picture:S.user.picture,
-      firstSeen:now,lastSeen:now,logins:1,device:dev
-    },data:null};
-    ACC.users[k]=acc;
-  }else{
-    acc.profile.name=S.user.name||acc.profile.name;
-    acc.profile.picture=S.user.picture||acc.profile.picture;
-    acc.profile.lastSeen=now;
-    acc.profile.logins=(acc.profile.logins||0)+1;
-    acc.profile.device=dev;
+  try{
+    AUTH.inited=true;
+    S.user={email:user.email,name:user.name||user.email,picture:user.picture||''};
+    const k=hashEmail(user.email);
+    const now=Date.now();
+    const dev=deviceInfo();
+    let acc=ACC.users[k];
+    if(!acc){
+      acc={profile:{
+        email:user.email,name:S.user.name,picture:S.user.picture,
+        firstSeen:now,lastSeen:now,logins:1,device:dev
+      },data:null};
+      ACC.users[k]=acc;
+    }else{
+      acc.profile.name=S.user.name||acc.profile.name;
+      acc.profile.picture=S.user.picture||acc.profile.picture;
+      acc.profile.lastSeen=now;
+      acc.profile.logins=(acc.profile.logins||0)+1;
+      acc.profile.device=dev;
+    }
+    ACC.session=user.email;
+    saveAccounts();
+    try { loadUserData(); }
+    catch(e){ console.error('loadUserData failed:', e); }
+    enterApp();
+  }catch(e){
+    console.error('authSuccess error:', e);
+    authSetError('Login gagal: '+esc(e.message));
+    // Force fallback: coba masuk app dengan data default
+    try{
+      S.user={email:user.email,name:user.name||user.email,picture:user.picture||''};
+      S.settings=JSON.parse(JSON.stringify(DEF));
+      S.threads=[];S.active=null;
+      mkThread(true);
+      enterApp();
+    }catch(e2){
+      console.error('Force enter error:', e2);
+      authSetError('Tidak bisa membuka aplikasi. Coba hapus cache browser (Ctrl+Shift+Del) dan reload.');
+    }
   }
-  ACC.session=user.email;
-  saveAccounts();
-  loadUserData();
-  enterApp();
 }
 function enterApp(){
-  const a=$('#auth');
-  a.classList.add('out');
-  setTimeout(()=>{a.hidden=true;a.classList.remove('out');},500);
-  $('#app').hidden=false;
-  applyTheme();bindSettings();fillAccountUI();
-  $('#app').classList.toggle('collapsed',S.sidebarCollapsed);
-  renderThreads();renderChat();setSendState();
-  renderLimit();
-  $('#inp').focus();
+  try{
+    const a=$('#auth');
+    if(a){ a.classList.add('out'); setTimeout(()=>{ a.hidden=true; a.classList.remove('out'); }, 500); }
+    const app=$('#app');
+    if(app) app.hidden=false;
+    try{ applyTheme(); }catch(e){ console.error('applyTheme',e); }
+    try{ bindSettings(); }catch(e){ console.error('bindSettings',e); }
+    try{ fillAccountUI(); }catch(e){ console.error('fillAccountUI',e); }
+    try{ app.classList.toggle('collapsed',S.sidebarCollapsed); }catch(e){}
+    try{ renderThreads(); }catch(e){ console.error('renderThreads',e); }
+    try{ renderChat(); }catch(e){ console.error('renderChat',e); }
+    try{ setSendState(); }catch(e){ console.error('setSendState',e); }
+    try{ renderLimit(); }catch(e){ console.error('renderLimit',e); }
+    setTimeout(()=>{ try{$('#inp').focus();}catch(e){} }, 100);
+  }catch(e){
+    console.error('enterApp error:', e);
+    // Fallback paling agresif: paksa tampilkan app
+    try{
+      const a=$('#auth'); if(a) a.hidden=true;
+      const app=$('#app'); if(app) app.hidden=false;
+    }catch(e2){}
+  }
 }
 function authLogout(){
   if(!confirm(t('logoutConfirm')))return;
-  save();
+  try{save();}catch(e){}
   ACC.session=null;saveAccounts();
   S.user=null;
   location.reload();
 }
 function authInit(){
-  if(AUTH.inited)return;AUTH.inited=true;
+  if(AUTH.inited && S.user)return;
   const a=$('#auth');
   const ft=$('#authFt');if(ft)ft.textContent=APP_VERSION+' · Dikembangkan oleh Mr.Paanz';
   if(ACC.session){
     const acc=getAccount(ACC.session);
     if(acc){
-      S.user={email:acc.profile.email,name:acc.profile.name||acc.profile.email,picture:acc.profile.picture||''};
-      acc.profile.lastSeen=Date.now();
-      acc.profile.logins=(acc.profile.logins||0)+1;
-      acc.profile.device=deviceInfo();
-      saveAccounts();
-      loadUserData();
-      a.hidden=true;
-      enterApp();
-      return;
+      try{
+        S.user={email:acc.profile.email,name:acc.profile.name||acc.profile.email,picture:acc.profile.picture||''};
+        acc.profile.lastSeen=Date.now();
+        acc.profile.logins=(acc.profile.logins||0)+1;
+        acc.profile.device=deviceInfo();
+        saveAccounts();
+        loadUserData();
+        AUTH.inited=true;
+        a.hidden=true;
+        enterApp();
+        return;
+      }catch(e){
+        console.error('authInit restore failed:', e);
+        // session corrupt → clear & tampilkan login
+        ACC.session=null;saveAccounts();
+      }
+    } else {
+      ACC.session=null;saveAccounts();
     }
   }
   a.hidden=false;
+  AUTH.inited=true;
   renderGoogleButton();
 }
 
+/* ===================== INIT ===================== */
 function init(){
   try{const saved=localStorage.getItem('paanz.lang');if(saved==='en'||saved==='id')LANG=saved;}catch(e){}
-  applyLang();
+  try{applyLang();}catch(e){console.error('applyLang',e);}
 
   loadAccounts();
   authInit();
@@ -2334,7 +2440,7 @@ function init(){
   document.addEventListener('click',e=>{
     if(!$('#limPop').hidden&&!e.target.closest('#limPop')&&!e.target.closest('#limBtn'))closeLimPop();
   });
-  setInterval(()=>{usagePrune();renderLimit();},1000);
+  setInterval(()=>{try{usagePrune();renderLimit();}catch(e){}},1000);
 
   $('#menuBtn').onclick=()=>{
     if(isMobile()){openSidebar();}
